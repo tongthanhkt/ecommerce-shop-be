@@ -25,4 +25,5 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-      - run: npm start be
+          cache-dependency-path: backend/package-lock.json
+      - run: npm run start
