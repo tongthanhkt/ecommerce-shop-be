@@ -14,9 +14,6 @@ const orderRoutes = require("./order");
 const reviewRoutes = require("./review");
 const wishlistRoutes = require("./wishlist");
 
-router.get("/test", (req, res) => {
-  res.send("Test api call here !");
-});
 // auth routes
 router.use("/auth", authRoutes);
 
