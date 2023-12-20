@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "npm install && nodemon index.js"
+    "start": "npm install && node index.js"
   },
   "type": "commonjs",
   "dependencies": {
