@@ -31,9 +31,6 @@ jobs:
 
       - name: Copy env to backend
         run: cp -r /home/ubuntu/backend-env/.env /home/ubuntu/be-runner/_work/ecommerce-shop/ecommerce-shop/backend/.env
-      - name: Debug info
-        run: |
-          echo "PATH=$PATH"
-          which pm2
+
       - name: Start backend app
-        run: pm2 restart index
+        run: sudo pm2 restart index
