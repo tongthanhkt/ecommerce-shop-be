@@ -1,0 +1,7 @@
+Create a symbolic link to enable the site:
+sudo ln -s /etc/nginx/sites-available/react-app /etc/nginx/sites-enabled
+sudo rm /etc/nginx/sites-enabled/default
+sudo nginx -t
+
+
+strict-origin-when-cross-origin: 
