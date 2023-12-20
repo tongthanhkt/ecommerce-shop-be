@@ -11,11 +11,7 @@ const setupDB = require("./utils/db");
 
 const { port } = keys;
 const app = express();
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+app.use(helmet.referrerPolicy({ policy: "strict-origin-when-cross-origin" }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
