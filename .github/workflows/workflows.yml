@@ -28,8 +28,5 @@ jobs:
           cache-dependency-path: backend/package-lock.json
       - name: Install dependency backend
         run: cd backend && npm ci && npm i
-      - name: Copy env to backend
-        run: cp -r /home/ubuntu/backend-env/.env /home/ubuntu/be-runner/_work/ecommerce-shop/ecommerce-shop/backend/.env
-
       - name: Start backend app
         run: cd backend && node index.js
