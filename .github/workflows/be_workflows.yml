@@ -22,10 +22,5 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
       - name: Install dependency backend
-        run: |
-          npm ci
-      - name: Start backend app
-        run: |
-          node index.js &
-      - run: |
-          npm run build --if-present
+        run: npm ci
+      - run: pm2 restart index
