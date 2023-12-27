@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "npm install"
+    "start": "nodemon index.js"
   },
   "type": "commonjs",
   "dependencies": {
@@ -22,6 +22,7 @@
     "google-auth-library": "^9.2.0",
     "helmer": "^0.0.1",
     "helmet": "^7.1.0",
+    "http-status-codes": "^2.3.0",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
     "mailchimp-api-v3": "^1.15.0",

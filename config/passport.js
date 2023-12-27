@@ -1,16 +1,16 @@
-const passport = require('passport');
-const JwtStrategy = require('passport-jwt').Strategy;
-const GoogleStrategy = require('passport-google-oauth2').Strategy;
-const FacebookStrategy = require('passport-facebook').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt;
-const mongoose = require('mongoose');
+const passport = require("passport");
+const JwtStrategy = require("passport-jwt").Strategy;
+const GoogleStrategy = require("passport-google-oauth2").Strategy;
+const FacebookStrategy = require("passport-facebook").Strategy;
+const ExtractJwt = require("passport-jwt").ExtractJwt;
+const mongoose = require("mongoose");
 
-const keys = require('./keys');
-const { EMAIL_PROVIDER } = require('../constants');
+const keys = require("./keys");
+const { EMAIL_PROVIDER } = require("../constants");
 
 const { google, facebook } = keys;
 
-const User = mongoose.model('User');
+const User = mongoose.model("User");
 const secret = keys.jwt.secret;
 
 const opts = {};
@@ -20,20 +20,20 @@ opts.secretOrKey = secret;
 passport.use(
   new JwtStrategy(opts, (payload, done) => {
     User.findById(payload.id)
-      .then(user => {
+      .then((user) => {
         if (user) {
           return done(null, user);
         }
 
         return done(null, false);
       })
-      .catch(err => {
+      .catch((err) => {
         return done(err, false);
       });
   })
 );
 
-module.exports = async app => {
+module.exports = async (app) => {
   app.use(passport.initialize());
 
   await googleAuth();
@@ -47,16 +47,16 @@ const googleAuth = async () => {
         {
           clientID: google.clientID,
           clientSecret: google.clientSecret,
-          callbackURL: google.callbackURL
+          callbackURL: google.callbackURL,
         },
         (accessToken, refreshToken, profile, done) => {
           User.findOne({ email: profile.email })
-            .then(user => {
+            .then((user) => {
               if (user) {
                 return done(null, user);
               }
 
-              const name = profile.displayName.split(' ');
+              const name = profile.displayName.split(" ");
 
               const newUser = new User({
                 provider: EMAIL_PROVIDER.Google,
@@ -65,7 +65,7 @@ const googleAuth = async () => {
                 firstName: name[0],
                 lastName: name[1],
                 avatar: profile.picture,
-                password: null
+                password: null,
               });
 
               newUser.save((err, user) => {
@@ -76,14 +76,14 @@ const googleAuth = async () => {
                 return done(null, user);
               });
             })
-            .catch(err => {
+            .catch((err) => {
               return done(err, false);
             });
         }
       )
     );
   } catch (error) {
-    console.log('Missing google keys');
+    console.log("Missing google keys");
   }
 };
 
@@ -96,16 +96,16 @@ const facebookAuth = async () => {
           clientSecret: facebook.clientSecret,
           callbackURL: facebook.callbackURL,
           profileFields: [
-            'id',
-            'displayName',
-            'name',
-            'emails',
-            'picture.type(large)'
-          ]
+            "id",
+            "displayName",
+            "name",
+            "emails",
+            "picture.type(large)",
+          ],
         },
         (accessToken, refreshToken, profile, done) => {
           User.findOne({ facebookId: profile.id })
-            .then(user => {
+            .then((user) => {
               if (user) {
                 return done(null, user);
               }
@@ -117,7 +117,7 @@ const facebookAuth = async () => {
                 firstName: profile.name.givenName,
                 lastName: profile.name.familyName,
                 avatar: profile.photos[0].value,
-                password: null
+                password: null,
               });
 
               newUser.save((err, user) => {
@@ -128,13 +128,13 @@ const facebookAuth = async () => {
                 return done(null, user);
               });
             })
-            .catch(err => {
+            .catch((err) => {
               return done(err, false);
             });
         }
       )
     );
   } catch (error) {
-    console.log('Missing facebook keys');
+    console.log("Missing facebook keys");
   }
 };
