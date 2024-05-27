@@ -24,4 +24,4 @@ jobs:
       - name: Install dependency backend
         run: npm ci
       - run: npm install
-      - run: pm2 restart index
+      # - run: pm2 restart index
