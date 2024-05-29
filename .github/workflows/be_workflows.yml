@@ -22,8 +22,8 @@ jobs:
       - name: rsync deployments
         uses: burnett01/rsync-deployments@7.0.1
         with:
-          switches: -avzr --delete\
-          path: /home/ubuntu/ecommerce-shop-be
+          switches: -avzr --delete
+          path: /home/ubuntu/
           remote_path: /home/ubuntu/ecommerce-shop-be
           remote_host: 54.95.200.33
           remote_user: ubuntu
