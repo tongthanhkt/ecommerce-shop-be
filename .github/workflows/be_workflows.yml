@@ -31,4 +31,5 @@ jobs:
           remote_host: 54.95.200.33
           remote_user: ubuntu
           remote_key: ${{ secrets.SSH_KEY }}
-      - run: pm2 start index.js --name backend-ecommerce
+      - name: Start server
+        run: pm2 start index.js --name backend-ecommerce
