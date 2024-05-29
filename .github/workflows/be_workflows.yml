@@ -1,28 +1,30 @@
-name: Node.js CI
+name: Build and deploy
 
 on:
   push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
-
+    branches:
+      - main
 jobs:
-  build:
-    runs-on: self-hosted
-
-    strategy:
-      matrix:
-        node-version: [16.x]
-
+  build-and-deploy:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - name: Checkout main branch
+        uses: actions/checkout@v4
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
-      - name: Install dependency backend
+          fetch-depth: 0
+          ref: main
+      - name: Set up Nodejs
+        uses: actions/setup-node@v4
+        with:
+          node-version: "16.x"
+      - name: Install dependency
         run: npm install
-        #run: npm ci
-
-      # - run: pm2 restart index
+      - name: Install SSH Keys
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          known_hosts: "unnecessary"
+      - name: Adding Know Hosts
+        run: ssh-keyscan -H -p 2354 ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+      - name: Transfer with rsync
+        run: rsync -avz --delete -e "ssh -p 2354" .${{secrets.USERNAME}}@${{secrets.HOST}}:${{secrets.TARGET_DIRECTORY}}
