@@ -24,7 +24,7 @@ jobs:
         with:
           key: ${{ secrets.SSH_KEY }}
           known_hosts: "unnecessary"
-      - name: Adding Know Hosts
-        run: ssh-keyscan -H -p 22 54.95.200.33 >> ~/.ssh/known_hosts
       - name: Transfer with rsync
-        run: rsync -avz --delete -e "ssh -p 22" . ${{secrets.USERNAME}}@${{secrets.HOST}}:${{secrets.TARGET_DIRECTORY}}
+        run: |
+          ssh-keyscan -H -p 22 ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+          rsync -avz --delete -e "ssh -p 22" . ${{secrets.USERNAME}}@${{secrets.HOST}}:${{secrets.TARGET_DIRECTORY}}
