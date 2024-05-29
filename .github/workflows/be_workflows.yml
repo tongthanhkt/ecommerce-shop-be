@@ -25,14 +25,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           known_hosts: "unnecessary"
       - name: Adding Know Hosts
-        run: ssh-keyscan -H -p 22 54.95.200.33 >> ~/.ssh/known_hosts
-      # - name: Transfer with rsync
-      #   run: rsync -avz --delete -e "ssh -p 22 -i ${{ secrets.SSH_KEY }}" . 54.95.200.33:~/
-      - name: rsync deployments
-        uses: burnett01/rsync-deployments@7.0.1
-        with:
-          switches: -avzr --delete
-          remote_path: /home/ubuntu/ecommerce-shop-be
-          remote_host: 54.95.200.33
-          remote_user: ubuntu
-          remote_key: ${{ secrets.SSH_KEY }}
+        run: ssh-keyscan -H -p 2354 54.95.200.33 >> ~/.ssh/known_hosts
+      - name: Transfer with rsync
+        run: rsync -avz --delete -e "ssh -p 2354" .${{secrets.USERNAME}}@${{secrets.HOST}}:${{secrets.TARGET_DIRECTORY}}
