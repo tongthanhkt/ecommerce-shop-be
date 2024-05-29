@@ -20,7 +20,7 @@ jobs:
         uses: burnett01/rsync-deployments@7.0.1
         with:
           switches: -avzr --delete
-          remote_path: ~/
+          remote_path: ~/ecommerce-shop-be/
           remote_host: 54.95.200.33
           remote_user: ubuntu
           remote_key: ${{ secrets.SSH_KEY }}
