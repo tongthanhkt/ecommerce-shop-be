@@ -20,6 +20,7 @@ jobs:
           touch .env
           echo PORT=${{vars.PORT}} >> .env
           echo MONGO_URI=${{vars.MONG_URI}} >> .env
+          echo MONGO_URI=${{vars.JWT_SECRET}} >> .env
       # - name: Install dependency
       #   run: npm install
       - run: echo "🍏 This job's status is ${{ job.status }}."

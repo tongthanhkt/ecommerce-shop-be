@@ -110,13 +110,13 @@ router.post("/register", async (req, res) => {
     }
 
     let subscribed = false;
-    if (isSubscribed) {
-      const result = await mailchimp.subscribeToNewsletter(email);
+    // if (isSubscribed) {
+    //   const result = await mailchimp.subscribeToNewsletter(email);
 
-      if (result.status === "subscribed") {
-        subscribed = true;
-      }
-    }
+    //   if (result.status === "subscribed") {
+    //     subscribed = true;
+    //   }
+    // }
 
     const user = new User({
       email,
