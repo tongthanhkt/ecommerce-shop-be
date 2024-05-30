@@ -20,8 +20,8 @@ jobs:
           touch .env
           echo PORT=${{vars.PORT}} >> .env
           echo MONGO_URI=${{vars.MONG_URI}} >> .env
-      - name: Install dependency
-        run: npm install
+      # - name: Install dependency
+      #   run: npm install
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - name: rsync deployments
         uses: burnett01/rsync-deployments@7.0.1
@@ -34,6 +34,6 @@ jobs:
 
       - name: Start application
         run: |
-          ssh  ubuntu@54.95.200.33 << 'EOF'
-          cd ~/ecommerce-shop-be/
-          pm2 start index.js --name backend-ecommerce
+          ssh  ubuntu@54.95.200.33 
+          && cd ~/ecommerce-shop-be/
+          && pm2 start index.js --name backend-ecommerce
