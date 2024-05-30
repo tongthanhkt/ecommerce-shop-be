@@ -6,11 +6,11 @@ const { key, listKey } = keys.mailchimp;
 
 class MailchimpService {
   init() {
-    try {
-      return new Mailchimp(key);
-    } catch (error) {
-      console.warn("Missing mailgun keys");
-    }
+    // try {
+    //   return new Mailchimp(key);
+    // } catch (error) {
+    //   console.warn("Missing mailgun keys");
+    // }
   }
 }
 
