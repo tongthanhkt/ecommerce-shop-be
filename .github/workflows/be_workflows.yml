@@ -41,6 +41,4 @@ jobs:
         run: ssh-keyscan -H -p 22 54.95.200.33 >> ~/.ssh/known_hosts
       - name: Start application
         run: |
-          ssh ubuntu@54.95.200.33 
-          && cd ~/ecommerce-shop-be/
-          && pm2 start index.js --name backend-ecommerce
+          ssh ubuntu@54.95.200.33 && cd ~/ecommerce-shop-be/ && pm2 start index.js --name backend-ecommerce
